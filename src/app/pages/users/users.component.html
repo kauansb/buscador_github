@@ -1,0 +1,28 @@
+<form [formGroup]="userForm" class="mb-3">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" class="form-control is-invalid" 
+            [class.is-invalid]="userForm.get('nome')?.errors && userForm.get('nome')?.touched" formControlName="nome">
+            <div *ngIf="userForm.get('nome')?.hasError('required')" class="invalid-feedback">O campo nome é obrigatório</div>
+            <div *ngIf="userForm.get('nome')?.hasError('maxlength')" class="invalid-feedback">Campo nome não pode ultrapassar 250 caracteres</div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="idade">Idade</label>
+            <input id="idade" type="number" class="form-control is-invalid"
+            [class.is-invalid]="userForm.get('idade')?.errors && userForm.get('idade')?.touched" formControlName="idade">
+            <div *ngIf="userForm.get('idade')?.hasError('required')" class="invalid-feedback">O campo idade é obrigatório</div>
+            <div *ngIf="userForm.get('idade')?.hasError('min' || 'max')" class="invalid-feedback">O campo de idade deve ser entre 12-100 anos</div>
+        </div>
+    </div>
+    <button [disabled]="!userForm.valid" (click)="SubmitForm()" class="btn btn-success mt-3">Incluir</button>
+</form>
+
+<div class="row" > <!--$event(usuario selecionado) -->
+    <app-user-card
+    (userInfoEmitter)="infoUserSelecionado($event)"
+    *ngFor="let user of users"
+    [user]="user" 
+    class="col-md-3 mb-3" >
+    </app-user-card>     
+</div>
