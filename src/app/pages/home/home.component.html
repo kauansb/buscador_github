@@ -1,0 +1,51 @@
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" 
+                placeholder="Buscar username" 
+                aria-label="Buscar username"
+                [(ngModel)]="username"
+                />
+            <button (click)="getGitUser()" class="btn btn-success" type="button">
+                pesquisar
+            </button>
+        </div>
+     </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<app-spinner *ngIf="loading" [isLoading]="loading" sizeClass="spinner-border-xl"></app-spinner>
+
+<div *ngIf="user" class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <img [src]="user.avatar_url" alt="" class="card-image-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.name}}</h5>
+                    <p class="card-text">Username: {{ '@' + user.login}}</p>
+                    <div class="text-center row">
+                        <div class="col-md">
+                            <p class="m-0"><b>Seguidores</b></p>
+                            <p class="card-text col-md">{{user.followers}}</p>
+                        </div>
+                        <div class="col-md">
+                            <p class="m-0"><b>Seguindo</b></p>
+                            <p class="card-text col-md">{{user.following}}</p>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" [href]="user.html_url" >Visitar perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
